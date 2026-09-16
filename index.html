@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Aesthetic Voice & Video Hub</title>
   <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
   <style>
@@ -27,88 +27,87 @@
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
       user-select: none;
       -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       background-color: var(--bg);
       color: var(--text);
       height: 100vh;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       position: relative;
     }
 
-    /* Интерактивное фоновое свечение */
     .ambient-glow {
       position: fixed;
-      width: 650px;
-      height: 650px;
+      width: 500px;
+      height: 500px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 45%, transparent 70%);
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 45%, transparent 70%);
       pointer-events: none;
       transform: translate(-50%, -50%);
       transition: width 0.3s, height 0.3s;
       z-index: 1;
     }
 
-    /* Верхняя панель */
     header {
-      height: 64px;
-      padding: 0 28px;
+      height: 56px;
+      padding: 0 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid var(--border);
-      background: rgba(5, 5, 7, 0.65);
-      backdrop-filter: blur(30px);
+      background: rgba(5, 5, 7, 0.75);
+      backdrop-filter: blur(25px);
       z-index: 20;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       font-weight: 700;
-      font-size: 15px;
-      letter-spacing: -0.5px;
+      font-size: 14px;
+      letter-spacing: -0.4px;
     }
 
     .brand-mark {
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: #fff;
-      box-shadow: 0 0 16px rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
-    /* Универсальные кнопки-капсулы */
     .pill {
       background: var(--surface);
       border: 1px solid var(--border);
       color: var(--text);
       border-radius: 9999px;
-      padding: 9px 18px;
-      font-size: 13px;
+      padding: 7px 14px;
+      font-size: 12px;
       font-weight: 500;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       cursor: pointer;
       backdrop-filter: blur(15px);
-      transition: all 0.35s var(--spring);
+      transition: all 0.3s var(--spring);
       outline: none;
+      white-space: nowrap;
     }
     .pill:hover {
       background: var(--surface-elevated);
       border-color: var(--border-hover);
-      transform: translateY(-1px);
     }
     .pill:active { transform: scale(0.96); }
 
@@ -118,11 +117,10 @@
       border-color: var(--accent);
       font-weight: 600;
     }
-    .pill.accent:hover { filter: brightness(0.92); }
 
     .icon-svg {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       stroke: currentColor;
       stroke-width: 2;
       stroke-linecap: round;
@@ -130,51 +128,51 @@
       fill: none;
       display: inline-block;
       vertical-align: middle;
+      flex-shrink: 0;
     }
 
-    /* ЭКРАН ВХОДА (LOBBY) */
+    /* ЛОББИ */
     .lobby-wrapper {
       position: fixed;
       inset: 0;
-      background: rgba(5, 5, 7, 0.82);
-      backdrop-filter: blur(40px);
+      background: rgba(5, 5, 7, 0.88);
+      backdrop-filter: blur(35px);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 100;
-      padding: 20px;
+      padding: 16px;
+      overflow-y: auto;
     }
 
     .lobby-card {
-      background: rgba(18, 18, 22, 0.85);
+      background: rgba(18, 18, 22, 0.9);
       border: 1px solid var(--border);
-      border-radius: 36px;
-      padding: 36px;
+      border-radius: 28px;
+      padding: 24px;
       width: 100%;
-      max-width: 440px;
+      max-width: 400px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255,255,255,0.1);
-      animation: cardAppear 0.6s var(--spring);
-      position: relative;
+      gap: 16px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+      animation: cardAppear 0.5s var(--spring);
     }
 
     .lobby-title {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.5px;
       text-align: center;
     }
 
     .lobby-subtitle {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
       text-align: center;
-      margin-top: -12px;
+      margin-top: -10px;
     }
 
-    /* Выбор аватарок */
     .avatar-selection-label {
       font-size: 11px;
       font-weight: 600;
@@ -187,42 +185,39 @@
       display: flex;
       justify-content: space-between;
       gap: 8px;
+      overflow-x: auto;
+      padding: 4px 2px;
+      scrollbar-width: none;
     }
+    .avatar-picker::-webkit-scrollbar { display: none; }
 
     .avatar-option {
-      width: 52px;
-      height: 52px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       overflow: hidden;
       border: 2px solid transparent;
       cursor: pointer;
-      transition: all 0.3s var(--spring);
-      position: relative;
+      flex-shrink: 0;
+      transition: all 0.25s var(--spring);
     }
     .avatar-option img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       filter: grayscale(100%);
-      transition: filter 0.3s, transform 0.3s;
-    }
-    .avatar-option:hover img {
-      filter: grayscale(40%);
-      transform: scale(1.08);
     }
     .avatar-option.selected {
       border-color: #ffffff;
-      transform: scale(1.12);
-      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+      transform: scale(1.08);
+      box-shadow: 0 0 16px rgba(255,255,255,0.3);
     }
-    .avatar-option.selected img {
-      filter: grayscale(0%);
-    }
+    .avatar-option.selected img { filter: grayscale(0%); }
 
     .input-field {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
 
     .input-field label {
@@ -243,34 +238,26 @@
       background: rgba(10, 10, 12, 0.8);
       border: 1px solid var(--border);
       border-radius: 9999px;
-      padding: 13px 20px;
+      padding: 11px 16px;
       color: #fff;
       font-size: 13px;
       outline: none;
-      transition: border-color 0.3s var(--spring);
     }
     input:focus { border-color: rgba(255, 255, 255, 0.4); }
 
-    /* Превью и тест микрофона */
     .mic-test-wrap {
       background: rgba(10, 10, 12, 0.6);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 12px 18px;
+      border-radius: 18px;
+      padding: 10px 14px;
       display: flex;
       align-items: center;
-      gap: 14px;
-    }
-
-    .mic-test-text {
-      font-size: 12px;
-      color: var(--text-muted);
-      white-space: nowrap;
+      gap: 10px;
     }
 
     .meter-track {
       flex: 1;
-      height: 5px;
+      height: 6px;
       background: rgba(255,255,255,0.08);
       border-radius: 9999px;
       overflow: hidden;
@@ -280,11 +267,10 @@
       width: 0%;
       background: #ffffff;
       border-radius: 9999px;
-      box-shadow: 0 0 10px #ffffff;
       transition: width 0.08s ease;
     }
 
-    /* Рабочая область и Сетка видео */
+    /* РАБОЧАЯ ОБЛАСТЬ */
     .main-workspace {
       flex: 1;
       display: flex;
@@ -295,39 +281,45 @@
 
     main {
       flex: 1;
-      padding: 24px;
+      padding: 12px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
       align-content: center;
-      transition: all 0.5s var(--spring);
+      overflow-y: auto;
+      transition: all 0.4s var(--spring);
     }
 
-    /* Режим Spotlight */
+    @media (min-width: 600px) {
+      header { height: 64px; padding: 0 24px; }
+      main { padding: 20px; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+      .lobby-card { padding: 32px; border-radius: 32px; }
+      .avatar-option { width: 52px; height: 52px; }
+    }
+
     main.pinned-mode {
       grid-template-columns: 1fr;
-      grid-template-rows: 1fr 150px;
+      grid-template-rows: 1fr 120px;
     }
 
     .peer-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 32px;
-      aspect-ratio: 16 / 10;
+      border-radius: 22px;
+      aspect-ratio: 16 / 11;
       position: relative;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(15px);
       cursor: pointer;
-      transition: all 0.45s var(--spring);
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
-    .peer-card:hover { border-color: var(--border-hover); }
 
     .peer-card.speaking {
       border-color: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 0 35px rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.18);
     }
 
     .peer-card.pinned {
@@ -346,14 +338,17 @@
     .peer-video.active { display: block; }
 
     .peer-avatar {
-      width: 105px;
-      height: 105px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       overflow: hidden;
       border: 2px solid var(--border);
       position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      transition: transform 0.3s var(--spring);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      transition: transform 0.25s var(--spring);
+    }
+    @media (min-width: 600px) {
+      .peer-avatar { width: 95px; height: 95px; }
     }
     .peer-card.speaking .peer-avatar {
       transform: scale(1.06);
@@ -367,65 +362,71 @@
 
     .peer-info {
       position: absolute;
-      bottom: 16px;
-      left: 16px;
-      background: rgba(10, 10, 12, 0.7);
-      backdrop-filter: blur(15px);
-      padding: 7px 16px;
+      bottom: 8px;
+      left: 8px;
+      background: rgba(10, 10, 12, 0.75);
+      backdrop-filter: blur(12px);
+      padding: 4px 10px;
       border-radius: 9999px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 500;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       border: 1px solid rgba(255,255,255,0.06);
+      max-width: 80%;
+    }
+    .peer-info span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .volume-box {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      background: rgba(10, 10, 12, 0.7);
-      backdrop-filter: blur(15px);
-      padding: 6px 12px;
+      top: 8px;
+      right: 8px;
+      background: rgba(10, 10, 12, 0.75);
+      backdrop-filter: blur(12px);
+      padding: 4px 8px;
       border-radius: 9999px;
       display: flex;
       align-items: center;
-      gap: 8px;
       opacity: 0;
-      transform: translateY(-6px);
-      transition: all 0.3s var(--spring);
+      transition: opacity 0.2s;
     }
-    .peer-card:hover .volume-box {
+    .peer-card:hover .volume-box, .peer-card:active .volume-box {
       opacity: 1;
-      transform: translateY(0);
     }
     .volume-box input[type="range"] {
-      width: 60px;
+      width: 48px;
       accent-color: #fff;
       cursor: pointer;
     }
 
-    /* Боковой P2P Чат */
+    /* ЧАТ */
     .chat-drawer {
-      width: 350px;
-      background: rgba(12, 12, 15, 0.9);
+      width: 100%;
+      background: rgba(12, 12, 15, 0.95);
       border-left: 1px solid var(--border);
-      backdrop-filter: blur(35px);
+      backdrop-filter: blur(30px);
       display: flex;
       flex-direction: column;
       transform: translateX(100%);
-      transition: transform 0.45s var(--spring);
+      transition: transform 0.35s var(--spring);
       position: absolute;
       right: 0;
       top: 0;
       bottom: 0;
       z-index: 30;
     }
+    @media (min-width: 600px) {
+      .chat-drawer { width: 340px; }
+    }
     .chat-drawer.open { transform: translateX(0); }
 
     .chat-header {
-      padding: 20px 24px;
+      padding: 16px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -436,22 +437,22 @@
 
     .chat-messages {
       flex: 1;
-      padding: 20px;
+      padding: 16px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .chat-bubble {
       background: var(--surface-elevated);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 10px 16px;
+      border-radius: 18px;
+      padding: 9px 14px;
       font-size: 13px;
-      max-width: 85%;
+      max-width: 88%;
       word-break: break-word;
-      animation: bubbleIn 0.3s var(--spring);
+      animation: bubbleIn 0.25s var(--spring);
     }
     .chat-bubble.mine {
       align-self: flex-end;
@@ -463,39 +464,44 @@
       font-size: 10px;
       font-weight: 600;
       color: var(--text-muted);
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
     .chat-bubble.mine .chat-author {
       color: rgba(0, 0, 0, 0.5);
     }
 
     .chat-input-bar {
-      padding: 16px;
+      padding: 12px 16px;
+      padding-bottom: max(12px, env(safe-area-inset-bottom));
       border-top: 1px solid var(--border);
       display: flex;
       gap: 8px;
     }
 
-    /* Плавающий стеклянный Dock кнопок */
+    /* ДОК УПРАВЛЕНИЯ */
     .dock {
       position: fixed;
-      bottom: 26px;
+      bottom: max(16px, env(safe-area-inset-bottom));
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(18, 18, 22, 0.75);
+      background: rgba(18, 18, 22, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(35px);
-      padding: 8px 12px;
+      backdrop-filter: blur(30px);
+      padding: 6px 10px;
       border-radius: 9999px;
       display: flex;
-      gap: 10px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+      gap: 8px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6);
       z-index: 50;
+      max-width: calc(100vw - 20px);
+      overflow-x: auto;
+      scrollbar-width: none;
     }
+    .dock::-webkit-scrollbar { display: none; }
 
     .dock-btn {
-      width: 50px;
-      height: 50px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border);
@@ -504,20 +510,15 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.3s var(--spring);
+      flex-shrink: 0;
+      transition: all 0.25s var(--spring);
     }
-    .dock-btn:hover {
-      background: var(--surface-elevated);
-      border-color: var(--border-hover);
-      transform: translateY(-3px);
-    }
-    .dock-btn:active { transform: scale(0.92); }
-
+    .dock-btn:active { transform: scale(0.9); }
     .dock-btn.active {
       background: #ffffff;
       color: #000000;
       border-color: #ffffff;
-      box-shadow: 0 0 24px rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
     }
     .dock-btn.danger {
       background: var(--danger);
@@ -525,10 +526,10 @@
       color: #ffffff;
     }
 
-    /* Тосты без браузерных алертов */
+    /* ТОСТЫ */
     .toast-container {
       position: fixed;
-      top: 24px;
+      top: 16px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -536,55 +537,53 @@
       gap: 8px;
       z-index: 1000;
       pointer-events: none;
+      width: max-content;
+      max-width: 90vw;
     }
 
     .toast {
-      background: rgba(22, 22, 26, 0.85);
+      background: rgba(22, 22, 26, 0.9);
       border: 1px solid rgba(255,255,255,0.12);
-      backdrop-filter: blur(30px);
+      backdrop-filter: blur(25px);
       color: #fff;
-      padding: 10px 20px;
+      padding: 9px 16px;
       border-radius: 9999px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      animation: toastIn 0.4s var(--spring), toastOut 0.4s var(--spring) 2.6s forwards;
+      animation: toastIn 0.3s var(--spring), toastOut 0.3s var(--spring) 2.4s forwards;
     }
 
     @keyframes cardAppear {
-      from { opacity: 0; transform: scale(0.92) translateY(20px); }
+      from { opacity: 0; transform: scale(0.94) translateY(12px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
     @keyframes toastIn {
-      from { opacity: 0; transform: translateY(-14px) scale(0.95); }
+      from { opacity: 0; transform: translateY(-10px) scale(0.95); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
     @keyframes toastOut {
       from { opacity: 1; transform: translateY(0) scale(1); }
-      to { opacity: 0; transform: translateY(-14px) scale(0.95); }
+      to { opacity: 0; transform: translateY(-10px) scale(0.95); }
     }
     @keyframes bubbleIn {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Фонарик, двигающийся за курсором мыши -->
   <div class="ambient-glow" id="ambientGlow"></div>
-
-  <!-- Контейнер для уведомлений (вместо browser alert) -->
   <div class="toast-container" id="toastBox"></div>
 
-  <!-- Шапка -->
   <header>
     <div class="brand">
       <div class="brand-mark"></div>
-      <span>STUDIO AESTHETIC</span>
+      <span>STUDIO PRO</span>
     </div>
 
     <div class="header-actions">
@@ -604,11 +603,9 @@
     </div>
   </header>
 
-  <!-- Рабочая область -->
   <div class="main-workspace">
     <main id="tilesGrid"></main>
 
-    <!-- P2P Чат -->
     <aside class="chat-drawer" id="chatDrawer">
       <div class="chat-header">
         <span>Комнатный чат</span>
@@ -619,60 +616,50 @@
       <div class="chat-messages" id="chatMessages"></div>
       <div class="chat-input-bar">
         <input type="text" id="chatInput" placeholder="Сообщение..." onkeydown="if(event.key==='Enter') sendChatMessage()">
-        <button class="pill accent" style="padding: 10px 14px;" onclick="sendChatMessage()">
+        <button class="pill accent" style="padding: 9px 14px;" onclick="sendChatMessage()">
           <svg class="icon-svg" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
         </button>
       </div>
     </aside>
   </div>
 
-  <!-- Плавающий Dock управления со всеми функциями (SVG) -->
   <div class="dock" id="controlDock" style="display: none;">
-    <!-- Микрофон -->
     <button class="dock-btn" id="micBtn" onclick="toggleMic()" title="Микрофон">
-      <svg class="icon-svg" id="micIcon" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+      <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
     </button>
 
-    <!-- Push-To-Talk (Рация) -->
-    <button class="dock-btn" id="pttBtn" onclick="togglePTTMode()" title="Режим рации (зажать пробел)">
+    <button class="dock-btn" id="pttBtn" onclick="togglePTTMode()" title="Режим рации (пробел / зажать)">
       <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
     </button>
 
-    <!-- Камера -->
     <button class="dock-btn" id="camBtn" onclick="toggleCam()" title="Веб-камера">
       <svg class="icon-svg" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
     </button>
 
-    <!-- Демонстрация экрана -->
-    <button class="dock-btn" id="screenBtn" onclick="toggleScreenShare()" title="Трансляция экрана (60 FPS)">
+    <button class="dock-btn" id="screenBtn" onclick="toggleScreenShare()" title="Демонстрация экрана">
       <svg class="icon-svg" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
     </button>
 
-    <!-- Заглушить звук (Deafen) -->
-    <button class="dock-btn" id="deafenBtn" onclick="toggleDeafen()" title="Заглушить входящий звук">
+    <button class="dock-btn" id="deafenBtn" onclick="toggleDeafen()" title="Заглушить звук">
       <svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 14h3l5 5V5L6 10H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
     </button>
 
-    <!-- Полноэкранный режим -->
     <button class="dock-btn" id="fullBtn" onclick="toggleFullScreen()" title="Во весь экран">
       <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
     </button>
 
-    <!-- Выход -->
-    <button class="dock-btn danger" onclick="leaveSession()" title="Покинуть комнату">
+    <button class="dock-btn danger" onclick="leaveSession()" title="Выйти">
       <svg class="icon-svg" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     </button>
   </div>
 
-  <!-- ЭКРАН ВХОДА (LOBBY) -->
   <div class="lobby-wrapper" id="loginModal">
     <div class="lobby-card">
       <h2 class="lobby-title">Комната связи</h2>
-      <p class="lobby-subtitle">Выбери стиль и проверь звук перед звонком</p>
+      <p class="lobby-subtitle">Выбери профиль и подключись</p>
 
-      <!-- Выбор аватарки -->
       <div class="input-field">
-        <label class="avatar-selection-label">Выбери свой аватар</label>
+        <label class="avatar-selection-label">Выбери аватар</label>
         <div class="avatar-picker">
           <div class="avatar-option selected" onclick="selectAvatar(0, this)">
             <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=150&auto=format&fit=crop&q=80" alt="Avatar 1">
@@ -701,22 +688,21 @@
         <label>Комната</label>
         <div class="input-row">
           <input type="text" id="roomInput" placeholder="sky-hq">
-          <button class="pill" type="button" onclick="generateRandomRoom()" title="Сгенерировать случайное имя">
+          <button class="pill" type="button" onclick="generateRandomRoom()" title="Случайная комната">
             <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
           </button>
         </div>
       </div>
 
-      <!-- Живой тест микрофона прямо на старте -->
+      <!-- Тест микрофона запускается по клику пользователя (безопасно для мобильных) -->
       <div class="mic-test-wrap">
-        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
-        <span class="mic-test-text">Микрофон:</span>
+        <button class="pill" type="button" id="testMicBtn" style="padding: 4px 10px; font-size: 11px;" onclick="testMicrophoneInLobby()">Тест звука</button>
         <div class="meter-track">
           <div class="meter-bar" id="micMeterBar"></div>
         </div>
       </div>
 
-      <button class="pill accent" style="padding: 14px; width: 100%; justify-content: center;" onclick="joinVoice()">
+      <button class="pill accent" style="padding: 13px; width: 100%; justify-content: center;" onclick="joinVoice()">
         <span>Войти в эфир</span>
         <svg class="icon-svg" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </button>
@@ -734,10 +720,13 @@
 
   let selectedAvatarUrl = AVATAR_URLS[0];
   let localStream = null;
+  let rawMicStream = null;
   let peer = null;
   let myPeerId = null;
   let currentRoom = null;
   let myName = 'Pilot';
+  let isHost = false;
+  let hostConn = null;
 
   let isMuted = false;
   let isCamActive = false;
@@ -746,36 +735,40 @@
   let isPTTActive = false;
   let isPTTPressed = false;
 
-  const peers = {}; // id -> { call, conn, name, avatar }
+  const peers = {}; // id -> { conn, call, name, avatar }
   let audioContext = null;
   let pinnedCardId = null;
 
-  // Интерактивный свет за курсором
-  window.addEventListener('mousemove', (e) => {
-    const glow = document.getElementById('ambientGlow');
-    glow.style.left = e.clientX + 'px';
-    glow.style.top = e.clientY + 'px';
-  });
+  // Фонарик за курсором (только на десктопах)
+  if (window.matchMedia('(pointer: fine)').matches) {
+    window.addEventListener('mousemove', (e) => {
+      const glow = document.getElementById('ambientGlow');
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+  }
 
-  // Выбор аватара
   function selectAvatar(index, el) {
     document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
     el.classList.add('selected');
     selectedAvatarUrl = AVATAR_URLS[index];
   }
 
-  // Генератор крутого названия комнаты
   function generateRandomRoom() {
-    const prefixes = ['nexus', 'orbit', 'shadow', 'pulse', 'void', 'matrix', 'cipher'];
+    const prefixes = ['nexus', 'orbit', 'shadow', 'pulse', 'matrix', 'cipher'];
     const num = Math.floor(Math.random() * 89 + 10);
-    const code = `${prefixes[Math.floor(Math.random() * prefixes.length)]}-${num}`;
-    document.getElementById('roomInput').value = code;
+    document.getElementById('roomInput').value = `${prefixes[Math.floor(Math.random() * prefixes.length)]}-${num}`;
   }
 
-  // Запуск фонового прослушивания микрофона в лобби для VU-метра
-  async function initLobbyMicTest() {
+  // Тест микрофона в лобби
+  let lobbyTestActive = false;
+  async function testMicrophoneInLobby() {
+    if (lobbyTestActive) return;
+    const btn = document.getElementById('testMicBtn');
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+      lobbyTestActive = true;
+      btn.innerText = 'Говорите...';
       const actx = new (window.AudioContext || window.webkitAudioContext)();
       const analyser = actx.createAnalyser();
       analyser.fftSize = 128;
@@ -785,46 +778,41 @@
       const data = new Uint8Array(analyser.frequencyBinCount);
       const bar = document.getElementById('micMeterBar');
 
-      function updateMeter() {
-        if (!document.getElementById('loginModal').style.display || document.getElementById('loginModal').style.display !== 'none') {
+      function update() {
+        if (lobbyTestActive && document.getElementById('loginModal').style.display !== 'none') {
           analyser.getByteFrequencyData(data);
           let sum = 0;
           for (let i = 0; i < data.length; i++) sum += data[i];
           const avg = sum / data.length;
-          const percentage = Math.min(100, Math.max(0, (avg / 70) * 100));
-          bar.style.width = percentage + '%';
-          requestAnimationFrame(updateMeter);
+          bar.style.width = Math.min(100, Math.max(0, (avg / 60) * 100)) + '%';
+          requestAnimationFrame(update);
+        } else {
+          stream.getTracks().forEach(t => t.stop());
         }
       }
-      updateMeter();
+      update();
     } catch (e) {
-      console.log("Mic preview not active yet", e);
+      showToast('Доступ к микрофону заблокирован', 'warn');
     }
   }
-  initLobbyMicTest();
 
-  // Всплывающие уведомления (тосты) с SVG
   function showToast(text, type = 'info') {
     const box = document.getElementById('toastBox');
     const toast = document.createElement('div');
     toast.className = 'toast';
-    
-    let svgIcon = `<svg class="icon-svg" style="width:16px;height:16px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`;
+    let icon = `<svg class="icon-svg" style="width:14px;height:14px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`;
     if (type === 'warn') {
-      svgIcon = `<svg class="icon-svg" style="width:16px;height:16px;stroke:var(--danger);" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+      icon = `<svg class="icon-svg" style="width:14px;height:14px;stroke:var(--danger);" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
     }
-
-    toast.innerHTML = `${svgIcon}<span>${text}</span>`;
+    toast.innerHTML = `${icon}<span>${text}</span>`;
     box.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
+    setTimeout(() => toast.remove(), 2700);
   }
 
-  // Подхват хэша комнаты из адресной строки
   if (window.location.hash) {
     document.getElementById('roomInput').value = window.location.hash.slice(1);
   }
 
-  // Пустой видеокадр (экономящий трафик)
   function createBlankTrack() {
     const canvas = Object.assign(document.createElement('canvas'), { width: 640, height: 360 });
     const ctx = canvas.getContext('2d');
@@ -836,8 +824,89 @@
     return track;
   }
 
+  // DSP Шумоподавление и Noise Gate с защитой от сбоев на смартфонах
+  function createStudioAudioProcessor(rawStream) {
+    try {
+      if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioContext.state === 'suspended') audioContext.resume();
+
+      const source = audioContext.createMediaStreamSource(rawStream);
+      const hpFilter = audioContext.createBiquadFilter();
+      hpFilter.type = 'highpass';
+      hpFilter.frequency.value = 85;
+
+      const notch50 = audioContext.createBiquadFilter();
+      notch50.type = 'notch';
+      notch50.frequency.value = 50;
+      notch50.Q.value = 6;
+
+      const lpFilter = audioContext.createBiquadFilter();
+      lpFilter.type = 'lowpass';
+      lpFilter.frequency.value = 14000;
+
+      const compressor = audioContext.createDynamicsCompressor();
+      compressor.threshold.setValueAtTime(-24, audioContext.currentTime);
+      compressor.knee.setValueAtTime(25, audioContext.currentTime);
+      compressor.ratio.setValueAtTime(10, audioContext.currentTime);
+      compressor.attack.setValueAtTime(0.003, audioContext.currentTime);
+      compressor.release.setValueAtTime(0.25, audioContext.currentTime);
+
+      const gateGain = audioContext.createGain();
+      gateGain.gain.setValueAtTime(0, audioContext.currentTime);
+
+      const analyser = audioContext.createAnalyser();
+      analyser.fftSize = 256;
+      analyser.smoothingTimeConstant = 0.2;
+
+      source.connect(hpFilter);
+      hpFilter.connect(notch50);
+      notch50.connect(lpFilter);
+      lpFilter.connect(compressor);
+      compressor.connect(gateGain);
+      compressor.connect(analyser);
+
+      const dest = audioContext.createMediaStreamDestination();
+      gateGain.connect(dest);
+
+      const pcm = new Uint8Array(analyser.frequencyBinCount);
+      let isOpen = false;
+      let holdTimer = null;
+
+      function runGate() {
+        analyser.getByteFrequencyData(pcm);
+        let sum = 0;
+        for (let i = 0; i < pcm.length; i++) sum += pcm[i];
+        const energy = sum / pcm.length;
+        const now = audioContext.currentTime;
+
+        if (energy > 13) {
+          if (!isOpen) {
+            isOpen = true;
+            gateGain.gain.cancelScheduledValues(now);
+            gateGain.gain.linearRampToValueAtTime(1.0, now + 0.015);
+          }
+          if (holdTimer) clearTimeout(holdTimer);
+          holdTimer = setTimeout(() => {
+            isOpen = false;
+            const closeTime = audioContext.currentTime;
+            gateGain.gain.cancelScheduledValues(closeTime);
+            gateGain.gain.linearRampToValueAtTime(0.0, closeTime + 0.15);
+          }, 180);
+        }
+        requestAnimationFrame(runGate);
+      }
+      runGate();
+
+      return dest.stream.getAudioTracks()[0];
+    } catch (e) {
+      console.warn("DSP fallback to standard track:", e);
+      return rawStream.getAudioTracks()[0];
+    }
+  }
+
   // Вход в сессию
   async function joinVoice() {
+    lobbyTestActive = false;
     myName = document.getElementById('nameInput').value.trim() || 'Pilot';
     const room = document.getElementById('roomInput').value.trim().toLowerCase();
 
@@ -847,18 +916,18 @@
     }
 
     try {
-      const audioStream = await navigator.mediaDevices.getUserMedia({
+      rawMicStream = await navigator.mediaDevices.getUserMedia({
         audio: {
           echoCancellation: true,
           noiseSuppression: true,
-          autoGainControl: true,
-          sampleRate: 48000,
-          channelCount: 2
-        }
+          autoGainControl: true
+        },
+        video: false
       });
 
+      const processedAudioTrack = createStudioAudioProcessor(rawMicStream);
       localStream = new MediaStream([
-        audioStream.getAudioTracks()[0],
+        processedAudioTrack,
         createBlankTrack()
       ]);
     } catch (e) {
@@ -879,8 +948,9 @@
     setupPeerNetwork(room);
   }
 
+  // Сетка WebRTC Full Mesh + Релей чата
   function setupPeerNetwork(room) {
-    const hostId = `studio-hub-${room}-host`;
+    const hostId = `studio-v5-${room}-host`;
     const cfg = {
       config: {
         iceServers: [
@@ -894,41 +964,56 @@
 
     peer.on('open', (id) => {
       myPeerId = id;
+      isHost = true;
       setupAsHost();
       showToast('Комната открыта');
     });
 
     peer.on('error', (err) => {
       if (err.type === 'unavailable-id') {
-        const guestId = `studio-hub-${room}-${Math.random().toString(36).substr(2, 6)}`;
+        const guestId = `studio-v5-${room}-${Math.random().toString(36).substr(2, 6)}`;
         peer = new Peer(guestId, cfg);
         peer.on('open', (id) => {
           myPeerId = id;
+          isHost = false;
           setupAsGuest(hostId);
           showToast('Подключено');
         });
       }
     });
-  }
 
-  function handleIncomingCall(call) {
-    call.answer(localStream);
-    call.on('stream', (stream) => attachMediaToCard(call.peer, stream));
+    // Обработка входящих медиазвонков для всех
+    peer.on('call', (call) => {
+      call.answer(localStream);
+      call.on('stream', (stream) => {
+        attachMediaToCard(call.peer, stream);
+      });
+    });
   }
 
   function setupAsHost() {
-    peer.on('call', handleIncomingCall);
     peer.on('connection', (conn) => {
-      setupDataChannel(conn);
       conn.on('data', (d) => {
         if (d.type === 'join') {
-          const peersList = Object.keys(peers).map(id => ({ id, name: peers[id].name, avatar: peers[id].avatar }));
+          // 1. Отправляем новичку список всех, кто уже в комнате
+          const existingList = Object.keys(peers).map(id => ({
+            id: id,
+            name: peers[id].name,
+            avatar: peers[id].avatar
+          }));
+
           conn.send({
             type: 'state',
-            peers: [{ id: myPeerId, name: myName, avatar: selectedAvatarUrl }, ...peersList]
+            peers: [{ id: myPeerId, name: myName, avatar: selectedAvatarUrl }, ...existingList]
           });
 
-          broadcast({ type: 'joined', user: { id: conn.peer, name: d.name, avatar: d.avatar } });
+          // 2. Оповещаем остальных гостей о новичке
+          broadcastExcept(conn.peer, {
+            type: 'joined',
+            user: { id: conn.peer, name: d.name, avatar: d.avatar }
+          });
+
+          // 3. Добавляем карточку у себя и звоним новичку
           peers[conn.peer] = { conn, name: d.name, avatar: d.avatar };
           addParticipantCard(conn.peer, d.name, d.avatar);
           showToast(`${d.name} вошёл`);
@@ -936,55 +1021,57 @@
           const call = peer.call(conn.peer, localStream);
           call.on('stream', (s) => attachMediaToCard(conn.peer, s));
           peers[conn.peer].call = call;
+        } else if (d.type === 'chat') {
+          // Ретранслируем сообщение чата всем остальным
+          broadcastExcept(conn.peer, d);
+          receiveMessage(d.name, d.text);
         }
       });
-      conn.on('close', () => removeParticipant(conn.peer));
+
+      conn.on('close', () => {
+        handleUserLeft(conn.peer);
+        broadcast({ type: 'leave', id: conn.peer });
+      });
     });
   }
 
   function setupAsGuest(hostId) {
-    peer.on('call', handleIncomingCall);
-    const conn = peer.connect(hostId);
-    setupDataChannel(conn);
+    hostConn = peer.connect(hostId);
 
-    conn.on('open', () => {
-      conn.send({ type: 'join', name: myName, avatar: selectedAvatarUrl });
+    hostConn.on('open', () => {
+      hostConn.send({ type: 'join', name: myName, avatar: selectedAvatarUrl });
     });
 
-    conn.on('data', (d) => {
+    hostConn.on('data', (d) => {
       if (d.type === 'state') {
+        // Получен список всех в комнате: создаем карточки
         d.peers.forEach(u => {
           if (u.id !== myPeerId && !peers[u.id]) {
             peers[u.id] = { name: u.name, avatar: u.avatar };
             addParticipantCard(u.id, u.name, u.avatar);
-            const call = peer.call(u.id, localStream);
-            call.on('stream', (s) => attachMediaToCard(u.id, s));
-            peers[u.id].call = call;
           }
         });
       } else if (d.type === 'joined') {
-        if (!peers[d.user.id]) {
-          peers[d.user.id] = { name: d.user.name, avatar: d.user.avatar };
-          addParticipantCard(d.user.id, d.user.name, d.user.avatar);
-          const call = peer.call(d.user.id, localStream);
-          call.on('stream', (s) => attachMediaToCard(d.user.id, s));
-          peers[d.user.id].call = call;
-          showToast(`${d.user.name} вошёл`);
+        // Новый участник зашел после нас — создаем карточку и звоним ему
+        const u = d.user;
+        if (!peers[u.id]) {
+          peers[u.id] = { name: u.name, avatar: u.avatar };
+          addParticipantCard(u.id, u.name, u.avatar);
+          showToast(`${u.name} вошёл`);
+          const call = peer.call(u.id, localStream);
+          call.on('stream', (s) => attachMediaToCard(u.id, s));
+          peers[u.id].call = call;
         }
+      } else if (d.type === 'chat') {
+        receiveMessage(d.name, d.text);
+      } else if (d.type === 'leave') {
+        handleUserLeft(d.id);
       }
     });
 
-    conn.on('close', () => {
+    hostConn.on('close', () => {
       showToast('Хост покинул сессию', 'warn');
       leaveSession();
-    });
-  }
-
-  function setupDataChannel(conn) {
-    conn.on('data', (d) => {
-      if (d.type === 'chat') {
-        receiveMessage(d.name, d.text);
-      }
     });
   }
 
@@ -994,9 +1081,18 @@
     });
   }
 
-  // Создание плашки участника с фото-аватаркой
+  function broadcastExcept(excludeId, data) {
+    Object.keys(peers).forEach(id => {
+      if (id !== excludeId && peers[id].conn && peers[id].conn.open) {
+        peers[id].conn.send(data);
+      }
+    });
+  }
+
   function addParticipantCard(id, name, avatarUrl, isSelf = false) {
     const grid = document.getElementById('tilesGrid');
+    if (document.getElementById(`card-${id}`)) return;
+
     const card = document.createElement('div');
     card.className = 'peer-card';
     card.id = `card-${id}`;
@@ -1025,7 +1121,7 @@
     updateCount();
   }
 
-  function removeParticipant(id) {
+  function handleUserLeft(id) {
     const el = document.getElementById(`card-${id}`);
     if (el) el.remove();
     if (pinnedCardId === id) togglePin(id);
@@ -1044,6 +1140,7 @@
   function togglePin(id) {
     const grid = document.getElementById('tilesGrid');
     const card = document.getElementById(`card-${id}`);
+    if (!card) return;
     if (pinnedCardId === id) {
       card.classList.remove('pinned');
       grid.classList.remove('pinned-mode');
@@ -1057,6 +1154,12 @@
   }
 
   function attachMediaToCard(id, stream) {
+    // Если карточки ещё нет, создаём её
+    if (!document.getElementById(`card-${id}`)) {
+      const p = peers[id] || { name: 'Собеседник', avatar: selectedAvatarUrl };
+      addParticipantCard(id, p.name, p.avatar);
+    }
+
     const audioEl = document.getElementById(`audio-${id}`);
     const videoEl = document.getElementById(`video-${id}`);
     const avatarEl = document.getElementById(`avatar-${id}`);
@@ -1072,7 +1175,7 @@
       const refreshVisibility = () => {
         const live = vTrack && vTrack.enabled && vTrack.readyState === 'live' && !vTrack.muted;
         videoEl.classList.toggle('active', !!live);
-        avatarEl.style.display = live ? 'none' : 'flex';
+        if (avatarEl) avatarEl.style.display = live ? 'none' : 'flex';
       };
       if (vTrack) {
         vTrack.onmute = refreshVisibility;
@@ -1100,29 +1203,30 @@
     selfVid.srcObject = new MediaStream([newTrack]);
     const isLive = newTrack.enabled && !newTrack.label.includes('canvas');
     selfVid.classList.toggle('active', isLive);
-    selfAva.style.display = isLive ? 'none' : 'flex';
+    if (selfAva) selfAva.style.display = isLive ? 'none' : 'flex';
   }
 
   function listenVoiceActivity(stream, cardEl) {
-    if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const analyser = audioContext.createAnalyser();
-    analyser.fftSize = 128;
-    analyser.smoothingTimeConstant = 0.25;
-    const src = audioContext.createMediaStreamSource(stream);
-    src.connect(analyser);
+    try {
+      if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const analyser = audioContext.createAnalyser();
+      analyser.fftSize = 128;
+      analyser.smoothingTimeConstant = 0.25;
+      const src = audioContext.createMediaStreamSource(stream);
+      src.connect(analyser);
 
-    const data = new Uint8Array(analyser.frequencyBinCount);
-    function pulse() {
-      analyser.getByteFrequencyData(data);
-      let sum = 0;
-      for (let i = 0; i < data.length; i++) sum += data[i];
-      if (cardEl) cardEl.classList.toggle('speaking', (sum / data.length) > 15);
-      requestAnimationFrame(pulse);
-    }
-    pulse();
+      const data = new Uint8Array(analyser.frequencyBinCount);
+      function pulse() {
+        analyser.getByteFrequencyData(data);
+        let sum = 0;
+        for (let i = 0; i < data.length; i++) sum += data[i];
+        if (cardEl) cardEl.classList.toggle('speaking', (sum / data.length) > 14);
+        requestAnimationFrame(pulse);
+      }
+      pulse();
+    } catch(e) {}
   }
 
-  // Управление кнопками
   function toggleMic() {
     if (isPTTActive) return;
     isMuted = !isMuted;
@@ -1132,18 +1236,38 @@
     showToast(isMuted ? 'Микрофон отключен' : 'Микрофон включен');
   }
 
+  // Push-To-Talk: поддержка пробела на ПК и зажатия кнопки на телефонах
   function togglePTTMode() {
     isPTTActive = !isPTTActive;
     const btn = document.getElementById('pttBtn');
     btn.classList.toggle('active', isPTTActive);
     if (isPTTActive) {
       localStream.getAudioTracks()[0].enabled = false;
-      showToast('Рация включена (зажми пробел)');
+      showToast('Рация: зажми Пробел или кнопку');
     } else {
       localStream.getAudioTracks()[0].enabled = true;
-      showToast('Стандартный микрофон');
+      showToast('Постоянный микрофон');
     }
   }
+
+  const pttBtn = document.getElementById('pttBtn');
+  const startPTT = (e) => {
+    if (!isPTTActive) return;
+    e.preventDefault();
+    localStream.getAudioTracks()[0].enabled = true;
+    document.getElementById('card-self').classList.add('speaking');
+  };
+  const stopPTT = (e) => {
+    if (!isPTTActive) return;
+    e.preventDefault();
+    localStream.getAudioTracks()[0].enabled = false;
+    document.getElementById('card-self').classList.remove('speaking');
+  };
+
+  pttBtn.addEventListener('mousedown', startPTT);
+  pttBtn.addEventListener('mouseup', stopPTT);
+  pttBtn.addEventListener('touchstart', startPTT, { passive: false });
+  pttBtn.addEventListener('touchend', stopPTT, { passive: false });
 
   window.addEventListener('keydown', (e) => {
     if (e.code === 'Space' && isPTTActive && !isPTTPressed && document.activeElement.tagName !== 'INPUT') {
@@ -1173,7 +1297,7 @@
     } else {
       try {
         const cam = await navigator.mediaDevices.getUserMedia({
-          video: { width: 1280, height: 720, frameRate: 30 }
+          video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: 'user' }
         });
         isCamActive = true;
         document.getElementById('camBtn').classList.add('active');
@@ -1186,6 +1310,10 @@
   }
 
   async function toggleScreenShare() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+      showToast('Не поддерживается на смартфонах', 'warn');
+      return;
+    }
     if (isSharingScreen) {
       stopScreenshare();
     } else {
@@ -1199,7 +1327,7 @@
         document.getElementById('screenBtn').classList.add('active');
         swapVideoTrack(track);
         track.onended = () => stopScreenshare();
-        showToast('Демонстрация экрана 60 FPS');
+        showToast('Трансляция экрана');
       } catch (e) {
         console.warn(e);
       }
@@ -1219,15 +1347,15 @@
       if (!a.id.includes('self')) a.muted = isDeafened;
     });
     document.getElementById('deafenBtn').classList.toggle('active', isDeafened);
-    showToast(isDeafened ? 'Звук заглушен' : 'Звук восстановлен');
+    showToast(isDeafened ? 'Звук заглушен' : 'Звук включен');
   }
 
   function toggleFullScreen() {
     if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
+      document.documentElement.requestFullscreen().catch(() => {});
       document.getElementById('fullBtn').classList.add('active');
     } else {
-      document.exitFullscreen();
+      document.exitFullscreen().catch(() => {});
       document.getElementById('fullBtn').classList.remove('active');
     }
   }
@@ -1240,7 +1368,14 @@
     const input = document.getElementById('chatInput');
     const text = input.value.trim();
     if (!text) return;
-    broadcast({ type: 'chat', name: myName, text });
+    const msg = { type: 'chat', name: myName, text };
+
+    if (isHost) {
+      broadcast(msg);
+    } else if (hostConn && hostConn.open) {
+      hostConn.send(msg);
+    }
+
     receiveMessage(myName, text, true);
     input.value = '';
   }
@@ -1273,6 +1408,7 @@
 
   function leaveSession() {
     if (localStream) localStream.getTracks().forEach(t => t.stop());
+    if (rawMicStream) rawMicStream.getTracks().forEach(t => t.stop());
     if (peer) peer.destroy();
     location.reload();
   }
